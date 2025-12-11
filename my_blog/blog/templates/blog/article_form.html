@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="card">
+        <h2>{{ title }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <!-- Выводим поля формы красиво -->
+            {% for field in form %}
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight: bold;">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'article_list' %}" class="btn btn-danger">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

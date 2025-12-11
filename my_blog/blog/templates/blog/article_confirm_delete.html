@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="card" style="text-align: center;">
+        <h2 style="color: #e74c3c;">Удаление статьи</h2>
+        <p>Вы действительно хотите удалить статью <strong>"{{ article.title }}"</strong>?</p>
+        <p>Это действие нельзя отменить.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Да, удалить</button>
+            <a href="{% url 'article_list' %}" class="btn btn-edit">Отмена</a>
+        </form>
+    </div>
+{% endblock %}
