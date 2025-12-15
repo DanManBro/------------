@@ -39,7 +39,7 @@ nav a:hover { text-decoration: underline; }
     transition: transform 0.2s;
 }
 
-.card:hover { transform: translateY(-3px); }
+.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
 .card h2 { margin-top: 0; color: #2c3e50; }
 .meta { color: #7f8c8d; font-size: 0.9rem; margin-bottom: 15px; }

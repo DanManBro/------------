@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %} <!-- Наследуемся от базового -->
+{% extends 'blog/base.html' %}
 
 {% block content %}
     <!-- Форма поиска -->
@@ -10,25 +10,33 @@
         </form>
     </div>
 
+    <!-- Заголовок, если мы в разделе "Мои статьи" -->
+    {% if request.resolver_match.url_name == 'my_articles' %}
+        <h2 style="margin-bottom: 20px;">Мои публикации</h2>
+    {% endif %}
+
     <!-- Список статей -->
     {% for article in articles %}
         <div class="card">
             <h2>{{ article.title }} <span class="badge">{{ article.group.name }}</span></h2>
             <div class="meta">
-                Автор: <strong>{{ article.author }}</strong> | 
+                Автор: <strong>{{ article.author.username }}</strong> | 
                 Дата: {{ article.pub_date|date:"d M Y H:i" }}
             </div>
-            <p>{{ article.content|truncatewords:30 }}</p> <!-- Показываем только первые 30 слов -->
+            <p>{{ article.content|truncatewords:30 }}</p>
             
-            <hr style="border: 0; border-top: 1px solid #eee;">
-            <div style="text-align: right;">
-                <a href="{% url 'article_update' article.pk %}" class="btn btn-edit">Редактировать</a>
-                <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Удалить</a>
-            </div>
+            <!-- КНОПКИ ВИДИТ ТОЛЬКО АВТОР -->
+            {% if article.author == user %}
+                <hr style="border: 0; border-top: 1px solid #eee;">
+                <div style="text-align: right;">
+                    <a href="{% url 'article_update' article.pk %}" class="btn btn-edit">Редактировать</a>
+                    <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Удалить</a>
+                </div>
+            {% endif %}
         </div>
     {% empty %}
         <div class="card">
-            <p>Статей пока нет. Будьте первым!</p>
+            <p>Статей пока нет.</p>
         </div>
     {% endfor %}
 {% endblock %}
